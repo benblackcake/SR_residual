@@ -117,12 +117,12 @@ def main():
 			input_image = input_image[:,:,:,np.newaxis]
 
 			result = predict_residual.eval({input_x: input_image})
+			result = result*255
 			print(result.shape)
 			result = np.squeeze(result)
 			result = merge(result,[nx,ny])
 
 
-			result = result*255
 			result = np.clip(result,0,255)
 
 			lr_image = merge(input_,[nx,ny], c_dim=3) *255
