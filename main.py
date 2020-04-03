@@ -135,9 +135,9 @@ def main():
 			# result = cv2.cvtColor(result,cv2.COLOR_YCrCb2RGB)
 			cv2.imwrite('residual_debug.bmp',result)     
 
-			checkimage(label_iamge[:,:,0], 'label_debug.bmp')
-			checkimage(lr_image[:,:,0], 'bicubic_debug.bmp')
-			checkimage(sr_image[:,:,0], 'sr_result_debug.bmp')
+			cv2.imwrite('label_debug.bmp', label_iamge[:,:,0])
+			cv2.imwrite('bicubic_debug.bmp', lr_image[:,:,0])
+			cv2.imwrite('sr_result_debug.bmp', sr_image[:,:,0])
 
 			plt.imshow(result, cmap='gray')
 			plt.show()
