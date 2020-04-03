@@ -121,7 +121,7 @@ def main():
 			result = result*255
 			result = np.clip(result,0,255).astype(np.uint8)
 			result = cv2.cvtColor(result,cv2.COLOR_YCrCb2RGB)
-			plt.imshow(result, cmap='gray')
+			plt.imshow(result)
 			plt.show()
 			print('__debug__result_testing...')
 			print(result.shape)
