@@ -78,20 +78,21 @@ def checkpoint_dir(is_train, checkpoint_dir):
     else:
         return os.path.join('./{}'.format(checkpoint_dir), "test.h5")
 
-def preprocess(path ,scale = 3):
+def preprocess(path ,scale = 2):
     img = imread(path)
-    label_ = modcrop(img, scale)
-    down_sampling_img = downSample(label_, scale)
-    down_sampling_img = down_sampling_img.astype(np.uint8)
 
-    #bicbuic_img = cv2.resize(label_,None,fx = 1.0/scale ,fy = 1.0/scale, interpolation = cv2.INTER_CUBIC)# Resize by scaling factor
-    input_ = cv2.resize(down_sampling_img,None,fx = scale ,fy=scale, interpolation = cv2.INTER_CUBIC)
-    # Resize by scaling factor
+    label_ = modcrop(img, scale)
+    
+    bicbuic_img = cv2.resize(label_,None,fx = 1.0/scale ,fy = 1.0/scale, interpolation = cv2.INTER_CUBIC)# Resize by scaling factor
+    input_ = cv2.resize(bicbuic_img,None,fx = scale ,fy=scale, interpolation = cv2.INTER_CUBIC)# Resize by scaling factor
     cv2.imwrite(os.path.join('./{}'.format(__DEBUG__imagePath + "/debug.png")), input_)
 
-    print(input_.shape)
-    print(label_.shape)
-    return input_,label_
+    if __DEBUG__SHOW__IMAGE :
+        #imBGR2RGB = cv2.cvtColor(input_.astype(np.float32),cv2.COLOR_BGR2RGB)
+        plt.imshow(input_)
+        plt.show()
+
+    return input_, label_
 
 def prepare_data(dataset="Train",Input_img=""):
     """
