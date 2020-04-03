@@ -123,7 +123,7 @@ def main():
 
 
 			result = result*255
-			result = np.clip(result,0,255).astype(np.uint8)
+			result = np.clip(result,0,255)
 
 			lr_image = merge(input_,[nx,ny], c_dim=3) *255
 			label_iamge = merge(label_,[nx,ny], c_dim=3) *255
@@ -131,7 +131,7 @@ def main():
 			sr_image[:,:,0] = sr_image[:,:,0] + result
 
 			# result = cv2.cvtColor(result,cv2.COLOR_YCrCb2RGB)
-			checkimage(result, 'residual_debug.bmp')
+			cv2.imwrite('residual_debug.bmp',result)     
 
 			checkimage(label_iamge, 'label_debug.bmp')
 			checkimage(lr_image, 'bicubic_debug.bmp')
