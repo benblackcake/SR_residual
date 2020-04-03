@@ -123,13 +123,13 @@ def main():
 			result = merge(result,[nx,ny])
 
 
-			result = np.clip(result,0,255)
+			# result = np.clip(result,0,255)
 
 			lr_image = merge(input_,[nx,ny], c_dim=3) *255
 			label_iamge = merge(label_,[nx,ny], c_dim=3) *255
 			sr_image = lr_image
 			print(sr_image[:,:,0])
-			sr_image[:,:,0]  +=result
+			sr_image[:,:,0] += result
 			print(sr_image[:,:,0])
 
 			# result = cv2.cvtColor(result,cv2.COLOR_YCrCb2RGB)
