@@ -129,7 +129,7 @@ def main():
 			label_iamge = merge(label_,[nx,ny], c_dim=3) *255
 			sr_image = lr_image
 			print(sr_image[:,:,0])
-			sr_image[:,:,0]  + result
+			sr_image[:,:,0]  +=result
 			print(sr_image[:,:,0])
 
 			# result = cv2.cvtColor(result,cv2.COLOR_YCrCb2RGB)
