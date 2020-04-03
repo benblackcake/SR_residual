@@ -15,7 +15,7 @@ class SRresidual:
 			x = self._conv_layer(x)
 
 		
-		x = tf.layers.conv2d(x, kernel_size=3, filters=3, strides=1, padding='same')
+		x = tf.layers.conv2d(x, kernel_size=3, filters=1, strides=1, padding='same')
 		return x
 
 

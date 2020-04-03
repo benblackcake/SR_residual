@@ -16,7 +16,7 @@ __DEBUG__imagePath = "./__DEBUG__"
 # Get the Image
 def imread(path):
     img = cv2.imread(path)
-    img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+    img = cv2.cvtColor(img, cv2.COLOR_BGR2YCR_CB)
     return img
 
 def imsave(image, path, config):

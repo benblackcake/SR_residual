@@ -60,8 +60,8 @@ def main():
 	args = parser.parse_args()
 
 
-	input_x = tf.placeholder(tf.float32, [None, None, None, 3], name='input_lowres')
-	input_y = tf.placeholder(tf.float32, [None, None, None, 3], name='input_highres')
+	input_x = tf.placeholder(tf.float32, [None, None, None, 1], name='input_lowres')
+	input_y = tf.placeholder(tf.float32, [None, None, None, 1], name='input_highres')
 
 	sr_residual = SRresidual()
 	predict_residual = sr_residual.forward(input_x, 20)
@@ -91,15 +91,15 @@ def main():
 					batch_images = input_[idx * args.batch_size : (idx + 1) * args.batch_size]
 					batch_labels = label_[idx * args.batch_size : (idx + 1) * args.batch_size]
 
-					# b_images = np.reshape(batch_images[:,:,:,0],[args.batch_size,args.image_size,args.image_size])
-					# b_labels = np.reshape(batch_labels[:,:,:,0],[args.batch_size,args.image_size,args.image_size])
+					b_images = np.reshape(batch_images[:,:,:,0],[args.batch_size,args.image_size,args.image_size,1])
+					b_labels = np.reshape(batch_labels[:,:,:,0],[args.batch_size,args.image_size,args.image_size,1])
 					# b_images = batch_images[:,:,:,0]
 					# b_labels = batch_labels[:,:,:,0]
 					# print(b_images.shape)
 					# print(b_labels.shape)
 
 					_, err = sess.run([optimizer, loss_func],
-								feed_dict={input_x: batch_images, input_y: batch_labels})
+								feed_dict={input_x: b_images, input_y: b_labels})
 
 					# debug_shape = sess.run([lr_images],feed_dict={lr_images: b_images, hr_images: b_labels})
 					# debug_shape = np.asarray(debug_shape)
@@ -113,9 +113,13 @@ def main():
 
 		else:
 			print("Now Start Testing...")
-			result = predict_residual.eval({input_x: input_})
-			print(result)
-			result = merge(result,[nx,ny],c_dim=3)
+			input_image = input_[:,:,:,0]
+			input_image = input_image[:,:,:,np.newaxis]
+
+			result = predict_residual.eval({input_x: input_image})
+			print(result.shape)
+			result = np.squeeze(result)
+			result = merge(result,[nx,ny],c_dim=1)
 
 
 			result = result*255
