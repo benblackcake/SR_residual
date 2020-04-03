@@ -6,8 +6,8 @@ import numpy as np
 
 
 class SRresidual:
-	def __init__(self):
-		pass
+	def __init__(self, learning_rate):
+		self.learning_rate = learning_rate
 
 	def forward(self,x,n_layer):
 
@@ -38,7 +38,7 @@ class SRresidual:
 
 	def optmizer(self,loss_function):
 
-		opt = tf.train.AdamOptimizer(learning_rate=1e-6)
+		opt = tf.train.AdamOptimizer(learning_rate=self.learning_rate)
 
 		gvs = opt.compute_gradients(loss_function)
 		capped_gvs = [(tf.clip_by_value(grad, -1., 1.), var) for grad, var in gvs]

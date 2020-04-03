@@ -46,7 +46,7 @@ def save(sess, saver, checkpoint_dir, step):
 def main():
     
 	parser = argparse.ArgumentParser()
-	parser.add_argument('--learning-rate', type=float, default=1e-4, help='Learning rate for Adam.')
+	parser.add_argument('--learning-rate', type=float, default=1e-5, help='Learning rate for Adam.')
 	parser.add_argument('--epoch', type=int, default='10000', help='How many iterations ')
 	parser.add_argument('--image-size', type=int, default=33, help='Size of random crops used for training samples.')
 	parser.add_argument('--c-dim', type=int, default=3, help='The size of channel')
@@ -63,7 +63,7 @@ def main():
 	input_x = tf.placeholder(tf.float32, [None, None, None, 1], name='input_lowres')
 	input_y = tf.placeholder(tf.float32, [None, None, None, 1], name='input_highres')
 
-	sr_residual = SRresidual()
+	sr_residual = SRresidual(args.learning_rate)
 	predict_residual = sr_residual.forward(input_x, 20)
 	r = input_y-input_x
 	loss_func = sr_residual.loss(r, predict_residual)
