@@ -129,7 +129,9 @@ def main():
 			lr_image = merge(input_,[nx,ny], c_dim=3) *255
 			label_iamge = merge(label_,[nx,ny], c_dim=3) *255
 			sr_image = lr_image
+
 			print(sr_image[:,:,0])
+			print(lr_image[:,:,0])
 			sr_image[:,:,0] = sr_image[:,:,0] + result
 
 			print(sr_image[:,:,0])
