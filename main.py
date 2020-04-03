@@ -131,6 +131,7 @@ def main():
 			sr_image[:,:,0] = sr_image[:,:,0] + result
 
 			# result = cv2.cvtColor(result,cv2.COLOR_YCrCb2RGB)
+			checkimage(result, 'residual_debug.bmp')
 
 			checkimage(label_iamge, 'label_debug.bmp')
 			checkimage(lr_image, 'bicubic_debug.bmp')
