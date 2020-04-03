@@ -1,5 +1,6 @@
 
 import tensorflow as tf
+
 import numpy as np
 
 
@@ -37,22 +38,23 @@ class SRresidual:
 
 	def optmizer(self,loss_function):
 
-		# opt = tf.train.AdamOptimizer(learning_rate=1e-5)
+		opt = tf.train.AdamOptimizer(learning_rate=1e-5)
 
-		# gvs = opt.compute_gradients(loss_function)
-		# capped_gvs = [(tf.clip_by_value(grad, -1., 1.), var) for grad, var in gvs]
-		# train_op = opt.apply_gradients(capped_gvs)
+		gvs = opt.compute_gradients(loss_function)
+		capped_gvs = [(tf.clip_by_value(grad, -1., 1.), var) for grad, var in gvs]
+		train_op = opt.apply_gradients(capped_gvs)
 
 
-		global_step = tf.Variable(0, trainable=False)
+		# global_step = tf.Variable(0, trainable=False)
 
-		initial_learning_rate = 0.0001 
+		# initial_learning_rate = 1e-5
 
-		learning_rate = tf.train.exponential_decay(initial_learning_rate, global_step=global_step, decay_steps=10,decay_rate=0.9)
-		opt = tf.train.GradientDescentOptimizer(learning_rate)
-		add_global = global_step.assign_add(1)
+		# learning_rate = tf.train.exponential_decay(initial_learning_rate, global_step=global_step, decay_steps=10,decay_rate=0.9)
+		# opt = tf.train.GradientDescentOptimizer(learning_rate)
+		# add_global = global_step.assign_add(1)
 
-		with tf.control_dependencies([add_global]):
-			train_op = opt.minimize(loss_function)
+		# with tf.control_dependencies([add_global]):
+		# 	train_op = opt.minimize(loss_function)
+
 
 		return train_op
