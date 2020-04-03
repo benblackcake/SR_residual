@@ -135,7 +135,7 @@ def main():
 			print(sr_image[:,:,0])
 			print(lr_image[:,:,0])
 			sr_image[:,:,0] = sr_image[:,:,0] + result
-
+			sr_image = np.ceil(sr_image)
 			print(sr_image[:,:,0])
 			print(lr_image[:,:,0])
 
