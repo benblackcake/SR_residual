@@ -36,7 +36,7 @@ def imsave(image, path, config):
 
     
 def checkimage(image,path):
-    # image = image.astype(np.uint8)
+    image = image.astype(np.uint8)
     image = cv2.cvtColor(image, cv2.COLOR_YCR_CB2BGR)
     cv2.imwrite(path,image)
     cv2.imshow(path,image)
