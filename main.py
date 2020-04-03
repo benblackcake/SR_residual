@@ -114,7 +114,7 @@ def main():
 		else:
 			print("Now Start Testing...")
 			result = predict_residual.eval({input_x: input_})
-
+			print(result)
 			result = merge(result,[nx,ny],c_dim=3)
 			plt.imshow(result, cmap='gray')
 			plt.show()
