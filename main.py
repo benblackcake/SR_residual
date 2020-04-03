@@ -124,8 +124,8 @@ def main():
 			result = merge(result,[nx,ny])
 
 
-			# result = np.clip(result,0,255)
-			result = np.ceil(result)
+			result = np.clip(result,0,255)
+			# result = np.ceil(result)
 			print(result)
 			lr_image = merge(input_,[nx,ny], c_dim=3) *255
 			checkimage('bicubic_debug.bmp', lr_image)
@@ -135,7 +135,7 @@ def main():
 			print(sr_image[:,:,0])
 			print(lr_image[:,:,0])
 			sr_image[:,:,0] = sr_image[:,:,0] + result
-			sr_image = np.ceil(sr_image)
+			# sr_image = np.ceil(sr_image)
 			print(sr_image[:,:,0])
 			print(lr_image[:,:,0])
 
