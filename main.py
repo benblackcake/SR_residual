@@ -135,7 +135,7 @@ def main():
 
 			checkimage(label_iamge, 'label_debug.bmp')
 			checkimage(lr_image, 'bicubic_debug.bmp')
-			checkimage(sr_image, 'sr_result.bmp')
+			checkimage(sr_image, 'sr_result_debug.bmp')
 
 			plt.imshow(result, cmap='gray')
 			plt.show()
