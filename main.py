@@ -128,7 +128,7 @@ def main():
 			lr_image = merge(input_,[nx,ny], c_dim=3) *255
 			label_iamge = merge(label_,[nx,ny], c_dim=3) *255
 			sr_image = lr_image
-			sr_image[:,:,0] = sr_image[:,:,0] + result
+			sr_image[:,:,0]  + result
 
 			# result = cv2.cvtColor(result,cv2.COLOR_YCrCb2RGB)
 			cv2.imwrite('residual_debug.bmp',result)     
