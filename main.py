@@ -119,12 +119,23 @@ def main():
 			result = predict_residual.eval({input_x: input_image})
 			print(result.shape)
 			result = np.squeeze(result)
-			result = merge(result,[nx,ny],c_dim=1)
+			result = merge(result,[nx,ny])
 
 
 			result = result*255
 			result = np.clip(result,0,255).astype(np.uint8)
+
+			lr_image = merge(input_,[nx,ny], c_dim=3) *255
+			label_iamge = merge(label_,[nx,ny], c_dim=3) *255
+			sr_image = lr_image
+			sr_image[:,:,0] = sr_image[:,:,0] + result
+
 			# result = cv2.cvtColor(result,cv2.COLOR_YCrCb2RGB)
+
+			checkimage(label_iamge, 'label_debug.bmp')
+			checkimage(lr_image, 'bicubic_debug.bmp')
+			checkimage(sr_image, 'sr_result.bmp')
+
 			plt.imshow(result, cmap='gray')
 			plt.show()
 			print('__debug__result_testing...')
