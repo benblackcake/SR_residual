@@ -17,7 +17,7 @@ class SRresidual:
 		
 		x = tf.layers.conv2d(x, kernel_size=3, filters=1, strides=1, padding='same', use_bias=True)
 		x = tf.keras.layers.ReLU()(x)
-		x = x-x_
+		x = x_ - x
 		return x
 
 
