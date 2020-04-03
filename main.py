@@ -127,6 +127,7 @@ def main():
 			result = np.clip(result,0,255)
 			print(result)
 			lr_image = merge(input_,[nx,ny], c_dim=3) *255
+			checkimage('bicubic_debug.bmp', lr_image)
 			label_iamge = merge(label_,[nx,ny], c_dim=3) *255
 			sr_image = lr_image
 
@@ -141,7 +142,6 @@ def main():
 			cv2.imwrite('residual_debug.bmp',result)     
 
 			checkimage('label_debug.bmp', label_iamge)
-			checkimage('bicubic_debug.bmp', lr_image)
 			checkimage('sr_result_debug.bmp', sr_image)
 
 			plt.imshow(result, cmap='gray')
