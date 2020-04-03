@@ -38,7 +38,7 @@ class SRresidual:
 
 	def optmizer(self,loss_function):
 
-		opt = tf.train.AdamOptimizer(learning_rate=1e-4)
+		opt = tf.train.AdamOptimizer(learning_rate=1e-6)
 
 		gvs = opt.compute_gradients(loss_function)
 		capped_gvs = [(tf.clip_by_value(grad, -1., 1.), var) for grad, var in gvs]
