@@ -9,7 +9,7 @@ class SRresidual:
 		pass
 
 	def forward(self,x,n_layer):
-		x_ =x
+
 		for i in range(n_layer-1):
 			# w = self._weight(shape=[3,3,3,64])
 			x = self._conv_layer(x)
@@ -17,7 +17,7 @@ class SRresidual:
 		
 		x = tf.layers.conv2d(x, kernel_size=3, filters=1, strides=1, padding='same', use_bias=True)
 		x = tf.keras.layers.ReLU()(x)
-		x = x_ - x
+
 		return x
 
 
