@@ -65,7 +65,8 @@ def main():
 
 	sr_residual = SRresidual()
 	predict_residual = sr_residual.forward(input_x, 20)
-	loss_func = sr_residual.loss(input_y-input_x, predict_residual)
+	r = input_y-input_x
+	loss_func = sr_residual.loss(r, predict_residual)
 
 	optimizer = sr_residual.optmizer(loss_func)
 
