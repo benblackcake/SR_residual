@@ -33,8 +33,8 @@ class SRresidual:
 		'''
 		y is residual 
 		'''
-		# return tf.reduce_mean(tf.square(y - y_pred))
-		return tf.nn.l2_loss(y - y_pred)
+		return tf.reduce_mean(tf.square(y - y_pred))
+		# return tf.nn.l2_loss(y - y_pred)
 
 
 	def optmizer(self,loss_function):
