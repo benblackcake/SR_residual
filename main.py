@@ -118,17 +118,14 @@ def main():
 			input_image = input_image[:,:,:,np.newaxis]
 
 			result = predict_residual.eval({input_x: input_image})
-			result = result*255
 			print(result.shape)
 			result = np.squeeze(result)
 			result = merge(result,[nx,ny])
 
-
-			result = np.clip(result,0,255)
 			# result = np.ceil(result)
 			print(result)
-			lr_image = merge(input_,[nx,ny], c_dim=3) *255
-			checkimage('bicubic_debug.bmp', lr_image)
+			lr_image = merge(input_,[nx,ny], c_dim=3)
+			checkimage('bicubic_debug.bmp', lr_image*255)
 			label_iamge = merge(label_,[nx,ny], c_dim=3) *255
 			sr_image = lr_image
 
@@ -140,10 +137,10 @@ def main():
 			print(lr_image[:,:,0])
 
 			# result = cv2.cvtColor(result,cv2.COLOR_YCrCb2RGB)
-			cv2.imwrite('residual_debug.bmp',result)     
+			cv2.imwrite('residual_debug.bmp',result*255)     
 
 			checkimage('label_debug.bmp', label_iamge)
-			checkimage('sr_result_debug.bmp', sr_image)
+			checkimage('sr_result_debug.bmp', sr_image*255)
 
 			plt.imshow(result, cmap='gray')
 			plt.show()
