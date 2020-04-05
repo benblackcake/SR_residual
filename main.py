@@ -114,23 +114,32 @@ def main():
 
 		else:
 			print("Now Start Testing...")
-			input_image = input_[:,:,:,0]
-			input_image = input_image[:,:,:,np.newaxis]
+			# image = imread('Test/Set5/butterfly_GT.bmp')
+			# image = cv2.cvtColor(image, cv2.COLOR_BGR2YCR_CB)
+
+			input_LR, input_HR = preprocess('Test/Set5/butterfly_GT.bmp')
+
+			input_LR = input_LR/255.
+			input_HR = input_HR/255.
+
+			input_image = input_LR[:,:,0]
+			input_image = np.reshape(input_image,[1,input_image.shape[0],input_image.shape[1],1])
+			# input_image = input_image[:,:,:,np.newaxis]
 
 			result = predict_residual.eval({input_x: input_image})
 			print(result.shape)
 			result = np.squeeze(result)
-			result = merge(result,[nx,ny])
+			# result = merge(result,[nx,ny])
 
 			# result = np.ceil(result)
 			print(result)
-			lr_image = merge(input_,[nx,ny], c_dim=3)
-			checkimage('bicubic_debug.bmp', lr_image*255)
-			label_iamge = merge(label_,[nx,ny], c_dim=3) *255
-			sr_image = lr_image
+			# lr_image = merge(input_,[nx,ny], c_dim=3)
+			checkimage('bicubic_debug.bmp', input_LR*255)
+			# label_iamge = merge(label_,[nx,ny], c_dim=3) *255
+			sr_image = input_LR
 
 			print(sr_image[:,:,0])
-			print(lr_image[:,:,0])
+			print(input_LR[:,:,0])
 			sr_image[:,:,0] = sr_image[:,:,0] + result
 			# sr_image = np.ceil(sr_image)
 			print(sr_image[:,:,0])
@@ -139,7 +148,7 @@ def main():
 			# result = cv2.cvtColor(result,cv2.COLOR_YCrCb2RGB)
 			cv2.imwrite('residual_debug.bmp',result*255)     
 
-			checkimage('label_debug.bmp', label_iamge)
+			checkimage('label_debug.bmp', input_HR)
 			checkimage('sr_result_debug.bmp', sr_image*255)
 
 			plt.imshow(result, cmap='gray')
