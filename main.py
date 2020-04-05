@@ -143,7 +143,7 @@ def main():
 			sr_image[:,:,0] = sr_image[:,:,0] + result
 			# sr_image = np.ceil(sr_image)
 			print(sr_image[:,:,0])
-			print(lr_image[:,:,0])
+			print(input_LR[:,:,0])
 
 			# result = cv2.cvtColor(result,cv2.COLOR_YCrCb2RGB)
 			cv2.imwrite('residual_debug.bmp',result*255)     
