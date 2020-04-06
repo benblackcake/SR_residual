@@ -108,7 +108,7 @@ def main():
 
 					counter +=1
 					# print('error: ',err)
-					t.set_description('[Epoch: %s], [Step: %s], [loss: %.8f]'(%epoch, %counter, % err))
+					t.set_description('[Epoch: %s], [Step: %s], [loss: %.8f]' %(epoch, counter, err))
 					if counter % 500 == 0:
 					    save(sess, saver, args.checkpoint_dir, counter)
 
