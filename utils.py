@@ -204,7 +204,7 @@ def read_data(path):
 
 def get_data_set(path,label):
     data_set = h5py.File(path, 'r')
-    return = data_set[label]
+    return data_set[label]
 
 
 
