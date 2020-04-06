@@ -80,7 +80,7 @@ def downsample(image, factor):
     return bicbuic_img
 
 def downsample_batch(batch, factor):
-    downsampled = np.zeros((batch.shape[0], batch.shape[1] // factor, batch.shape[2] // factor, 3))
+    downsampled = np.zeros((batch.shape[0], batch.shape[1] , batch.shape[2], 3))
     for i in range(batch.shape[0]):
         downsampled[i, :, :, :] = downsample(batch[i, :, :, :], factor)
     return downsampled
