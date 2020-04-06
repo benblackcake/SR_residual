@@ -96,9 +96,11 @@ def main():
 					batch_hr = train_data_set[batch_idx:batch_idx + args.batch_size]
 					batch_lr = downsample_batch(batch_hr, factor=args.scale)
 					batch_lr, batch_hr = pre_process(batch_lr, batch_hr)
-
+					
+					b_images = np.reshape(batch_lr[:,:,:,0],[args.batch_size,args.image_size,args.image_size])
+					b_labels = np.reshape(batch_hr[:,:,:,0],[args.batch_size,args.image_size,args.image_size])
 					_, err = sess.run([optimizer, loss_func],
-								feed_dict={input_x: batch_lr, input_y: batch_hr})
+								feed_dict={input_x: b_images, input_y: b_labels})
 
 					# debug_shape = sess.run([lr_images],feed_dict={lr_images: b_images, hr_images: b_labels})
 					# debug_shape = np.asarray(debug_shape)
