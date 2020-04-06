@@ -73,11 +73,11 @@ def downSample(image,scale=3):
     return img
 
 def downsample(image, factor):
-    print(image.shape)
-    image = modcrop(image, factor)
+    # print(image.shape)
+    # image = modcrop(image, factor)
     bicbuic_img = cv2.resize(image,None,fx = 1.0/factor ,fy = 1.0/factor, interpolation = cv2.INTER_CUBIC)# Resize by scaling factor
     bicbuic_img = cv2.resize(bicbuic_img,None,fx = factor ,fy=factor, interpolation = cv2.INTER_CUBIC)# Resize by scaling factor
-    print(bicbuic_img.shape)
+    # print(bicbuic_img.shape)
     """Downsampling function which matches photoshop"""
     return bicbuic_img
 

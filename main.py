@@ -89,7 +89,7 @@ def main():
 
 			for epoch in range(args.epoch):
 				# batch_idxs = len(input_) // args.batch_size
-				t =trange(0, len(train_data_set) - args.batch_size + 1, args.batch_size, desc='Iterations')
+				t =tqdm(range(0, len(train_data_set) - args.batch_size + 1, args.batch_size))
 
 		        # print(len(input_))
 				for batch_idx in t:
