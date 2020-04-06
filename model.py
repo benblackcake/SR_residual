@@ -10,7 +10,7 @@ class SRresidual:
 		self.learning_rate = learning_rate
 
 	def forward(self,x,n_layer):
-        with tf.variable_scope('residual') as scope:
+		with tf.variable_scope('residual') as scope:
 			x = tf.layers.conv2d(x, kernel_size=3, filters=1, strides=1, padding='same', use_bias=True)
 			x = tf.nn.relu(x)
 			skip = x
