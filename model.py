@@ -12,7 +12,7 @@ class SRresidual:
 	def forward(self,x,n_layer):
 
 		x = tf.layers.conv2d(x, kernel_size=3, filters=1, strides=1, padding='same', use_bias=True)
-		x = tf.keras.layers.ReLU()(x)
+		x = tf.nn.ReLU(x)
 		skip = x
 		for i in range(n_layer-1):
 			# w = self._weight(shape=[3,3,3,64])
@@ -20,15 +20,17 @@ class SRresidual:
 			print(x)
 		x = x + skip
 		x = tf.layers.conv2d(x, kernel_size=3, filters=1, strides=1, padding='same', use_bias=True)
-		x = tf.keras.layers.ReLU()(x)
+		x = tf.nn.ReLU(x)
 
 		return x
 
 
 	def _conv_layer(self,x):
 		# x = tf.nn.conv2d(x,weight,stride=[1,1,1,1],padding='SAME')
+		skip = x
 		x = tf.layers.conv2d(x, kernel_size=3, filters=64, strides=1, padding='same',use_bias=True)
-		x = tf.keras.layers.ReLU()(x)
+		x = tf.nn.ReLU(x)
+		x = x + skip
 		return x
 
 
