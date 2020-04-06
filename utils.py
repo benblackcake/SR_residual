@@ -99,7 +99,7 @@ def checkpoint_dir(is_train, checkpoint_dir):
     else:
         return os.path.join('./{}'.format(checkpoint_dir), "test.h5")
 
-def preprocess(path ,scale = 2):
+def preprocess(path ,scale = 3):
     img = imread(path)
 
     label_ = modcrop(img, scale)
