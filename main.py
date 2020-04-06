@@ -87,7 +87,7 @@ def main():
 		if args.is_train:
 			pbar = tqdm(range(args.epoch),bar_format='{l_bar}{bar:10}{r_bar}{bar:-10b}')
 
-			for epoch in args.epoch:
+			for epoch in range(args.epoch):
 				# batch_idxs = len(input_) // args.batch_size
 				t =trange(0, len(train_data_set) - args.batch_size + 1, args.batch_size, desc='Iterations')
 
