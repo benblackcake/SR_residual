@@ -87,12 +87,12 @@ def main():
 		if args.is_train:
 			pbar = tqdm(range(args.epoch),bar_format='{l_bar}{bar:10}{r_bar}{bar:-10b}')
 
-			for epoch in pbar:
+			for epoch in args.epoch:
 				# batch_idxs = len(input_) // args.batch_size
-				# t =trange(0, len(train_data_set) - args.batch_size + 1, args.batch_size, desc='Iterations')
+				t =trange(0, len(train_data_set) - args.batch_size + 1, args.batch_size, desc='Iterations')
 
 		        # print(len(input_))
-				for batch_idx in range(0, len(train_data_set) - args.batch_size + 1, args.batch_size):
+				for batch_idx in t:
 					batch_hr = train_data_set[batch_idx:batch_idx + args.batch_size]
 					batch_lr = downsample_batch(batch_hr, factor=args.scale)
 					batch_lr, batch_hr = pre_process(batch_lr, batch_hr)
@@ -108,7 +108,7 @@ def main():
 
 					counter +=1
 					# print('error: ',err)
-					pbar.set_description('[ERROR %.8f]'% err)
+					t.set_description('[Epoch: %s], [Step: %s], [loss: %.8f]'(%epoch, %counter, % err))
 					if counter % 500 == 0:
 					    save(sess, saver, args.checkpoint_dir, counter)
 
