@@ -44,23 +44,6 @@ class SRresidual:
 
 	def optmizer(self,loss_function):
 
-		# opt = tf.train.AdamOptimizer(learning_rate=self.learning_rate).minimize(loss_function)
-
-		# gvs = opt.compute_gradients(loss_function)
-		# capped_gvs = [(tf.clip_by_value(grad, -1., 1.), var) for grad, var in gvs]
-		# train_op = opt.apply_gradients(capped_gvs)
-
-
-		# global_step = tf.Variable(0, trainable=False)
-
-		# initial_learning_rate = 1e-5
-
-		# learning_rate = tf.train.exponential_decay(initial_learning_rate, global_step=global_step, decay_steps=10,decay_rate=0.9)
-		# opt = tf.train.GradientDescentOptimizer(learning_rate)
-		# add_global = global_step.assign_add(1)
-
-		# with tf.control_dependencies([add_global]):
-		# 	train_op = opt.minimize(loss_function)
 		update_ops = tf.get_collection(tf.GraphKeys.UPDATE_OPS)
 		with tf.control_dependencies(update_ops):
 			return tf.train.AdamOptimizer(self.learning_rate).minimize(loss_function, var_list=tf.get_collection(tf.GraphKeys.TRAINABLE_VARIABLES)
