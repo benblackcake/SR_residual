@@ -97,8 +97,8 @@ def main():
 					batch_lr = downsample_batch(batch_hr, factor=args.scale)
 					batch_lr, batch_hr = pre_process(batch_lr, batch_hr)
 					
-					b_images = np.reshape(batch_lr[:,:,:,0],[args.batch_size,args.image_size,args.image_size],1)
-					b_labels = np.reshape(batch_hr[:,:,:,0],[args.batch_size,args.image_size,args.image_size],1)
+					b_images = np.reshape(batch_lr[:,:,:,0],[args.batch_size,args.image_size,args.image_size,1])
+					b_labels = np.reshape(batch_hr[:,:,:,0],[args.batch_size,args.image_size,args.image_size,1])
 					_, err = sess.run([optimizer, loss_func],
 								feed_dict={input_x: b_images, input_y: b_labels})
 
