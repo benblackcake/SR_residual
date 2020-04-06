@@ -85,11 +85,10 @@ def main():
 		load(sess, saver, args.checkpoint_dir)
 
 		if args.is_train:
-			pbar = tqdm(range(args.epoch),bar_format='{l_bar}{bar:10}{r_bar}{bar:-10b}')
-
+			# pbar = tqdm(range(args.epoch),bar_format='{l_bar}{bar:10}{r_bar}{bar:-10b}')
 			for epoch in range(args.epoch):
 				# batch_idxs = len(input_) // args.batch_size
-				t =tqdm(range(0, len(train_data_set) - args.batch_size + 1, args.batch_size))
+				t =tqdm(range(0, len(train_data_set) - args.batch_size + 1, args.batch_size),bar_format='{l_bar}{bar:10}{r_bar}{bar:-10b}')
 
 		        # print(len(input_))
 				for batch_idx in t:
