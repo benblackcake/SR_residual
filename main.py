@@ -70,13 +70,15 @@ def main():
 
 	optimizer = sr_residual.optmizer(loss_func)
 
+	train_data_path = 'done_dataset\PreprocessedData.h5'
 
 	with tf.Session() as sess:
 		sess.run(tf.global_variables_initializer())
 
-		nx, ny = input_setup(args.image_size, args.scale, args.is_train, args.checkpoint_dir)
-		data_dir = checkpoint_dir(args.is_train, args.checkpoint_dir)
-		input_, label_ = read_data(data_dir)
+		# nx, ny = input_setup(args.image_size, args.scale, args.is_train, args.checkpoint_dir)
+		# data_dir = checkpoint_dir(args.is_train, args.checkpoint_dir)
+		# input_, label_ = read_data(data_dir)
+		train_data_set = get_data_set(train_data_path,'train')
 	
 		saver = tf.train.Saver()
 		counter = 0
@@ -86,21 +88,17 @@ def main():
 			pbar = tqdm(range(args.epoch),bar_format='{l_bar}{bar:10}{r_bar}{bar:-10b}')
 
 			for epoch in pbar:
-				batch_idxs = len(input_) // args.batch_size
-		        # print(len(input_))
-				for idx in range(0, batch_idxs):
-					batch_images = input_[idx * args.batch_size : (idx + 1) * args.batch_size]
-					batch_labels = label_[idx * args.batch_size : (idx + 1) * args.batch_size]
+				# batch_idxs = len(input_) // args.batch_size
+				# t =trange(0, len(train_data_set) - args.batch_size + 1, args.batch_size, desc='Iterations')
 
-					b_images = np.reshape(batch_images[:,:,:,0],[args.batch_size,args.image_size,args.image_size,1])
-					b_labels = np.reshape(batch_labels[:,:,:,0],[args.batch_size,args.image_size,args.image_size,1])
-					# b_images = batch_images[:,:,:,0]
-					# b_labels = batch_labels[:,:,:,0]
-					# print(b_images.shape)
-					# print(b_labels.shape)
+		        # print(len(input_))
+				for batch_idx in range(0, len(train_data_set) - args.batch_size + 1, args.batch_size):
+					batch_hr = train_data_set[batch_idx:batch_idx + args.batch_size]
+					batch_lr = downsample_batch(batch_hr, factor=args.scale)
+					batch_lr, batch_hr = pre_process(batch_lr, batch_hr)
 
 					_, err = sess.run([optimizer, loss_func],
-								feed_dict={input_x: b_images, input_y: b_labels})
+								feed_dict={input_x: batch_lr, input_y: batch_hr})
 
 					# debug_shape = sess.run([lr_images],feed_dict={lr_images: b_images, hr_images: b_labels})
 					# debug_shape = np.asarray(debug_shape)

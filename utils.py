@@ -72,6 +72,25 @@ def downSample(image,scale=3):
                 img[i//scale][j//scale] = image[i][j]
     return img
 
+def downsample(image, factor):
+    bicbuic_img = cv2.resize(image,None,fx = 1.0/factor ,fy = 1.0/factor, interpolation = cv2.INTER_CUBIC)# Resize by scaling factor
+    bicbuic_img = cv2.resize(bicbuic_img,None,fx = factor ,fy=factor, interpolation = cv2.INTER_CUBIC)# Resize by scaling factor
+
+    """Downsampling function which matches photoshop"""
+    return bicbuic_img
+
+def downsample_batch(batch, factor):
+    downsampled = np.zeros((batch.shape[0], batch.shape[1] // factor, batch.shape[2] // factor, 3))
+    for i in range(batch.shape[0]):
+        downsampled[i, :, :, :] = downsample(batch[i, :, :, :], factor)
+    return downsampled
+
+def pre_process(lr, hr):
+    """Preprocess lr and hr batch"""
+    lr = lr / 255.0
+    hr = hr / 255.0
+    return lr, hr
+
 def checkpoint_dir(is_train, checkpoint_dir):
     if is_train:
         return os.path.join('./{}'.format(checkpoint_dir), "train.h5")
@@ -181,6 +200,13 @@ def read_data(path):
         input_ = np.array(hf.get('input'))
         label_ = np.array(hf.get('label'))
         return input_, label_
+
+
+def get_data_set(path,label):
+    data_set = h5py.File(path, 'r')
+    return = data_set[label]
+
+
 
 def make_data_hf(input_,label_,is_train, checkpoint_dir):
     """
