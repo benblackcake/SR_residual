@@ -10,19 +10,19 @@ class SRresidual:
 		self.learning_rate = learning_rate
 
 	def forward(self,x,n_layer):
+        with tf.variable_scope('residual') as scope:
+			x = tf.layers.conv2d(x, kernel_size=3, filters=1, strides=1, padding='same', use_bias=True)
+			x = tf.nn.relu(x)
+			skip = x
+			for i in range(n_layer-1):
+				# w = self._weight(shape=[3,3,3,64])
+				x = self._conv_layer(x)
+				print(x)
+			x = x + skip
+			x = tf.layers.conv2d(x, kernel_size=3, filters=1, strides=1, padding='same', use_bias=True)
+			x = tf.nn.relu(x)
 
-		x = tf.layers.conv2d(x, kernel_size=3, filters=1, strides=1, padding='same', use_bias=True)
-		x = tf.nn.relu(x)
-		skip = x
-		for i in range(n_layer-1):
-			# w = self._weight(shape=[3,3,3,64])
-			x = self._conv_layer(x)
-			print(x)
-		x = x + skip
-		x = tf.layers.conv2d(x, kernel_size=3, filters=1, strides=1, padding='same', use_bias=True)
-		x = tf.nn.relu(x)
-
-		return x
+			return x
 
 
 	def _conv_layer(self,x):
@@ -44,6 +44,7 @@ class SRresidual:
 
 	def optmizer(self,loss_function):
 
-		update_ops = tf.get_collection(tf.GraphKeys.UPDATE_OPS)
+		update_ops = tf.get_collection(tf.GraphKeys.UPDATE_OPS, scope='residual')
 		with tf.control_dependencies(update_ops):
-			return tf.train.AdamOptimizer(self.learning_rate).minimize(loss_function)
+			return tf.train.AdamOptimizer(self.learning_rate).minimize(loss_function, 
+				var_list=tf.get_collection(tf.GraphKeys.TRAINABLE_VARIABLES, scope='residual'))
