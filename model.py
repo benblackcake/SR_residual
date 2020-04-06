@@ -65,6 +65,3 @@ class SRresidual:
 		with tf.control_dependencies(update_ops):
 			return tf.train.AdamOptimizer(self.learning_rate).minimize(loss_function, 
 									  var_list=tf.get_collection(tf.GraphKeys.TRAINABLE_VARIABLES)
-
-		# train_op = opt
-		# return train_op
