@@ -64,7 +64,7 @@ def main():
 	input_y = tf.placeholder(tf.float32, [None, None, None, 1], name='input_highres')
 
 	sr_residual = SRresidual(args.learning_rate)
-	predict_residual = sr_residual.forward(input_x, 10)
+	predict_residual = sr_residual.forward(input_x, 20)
 	r = tf.abs(input_y-input_x)
 	loss_func = sr_residual.loss(r, predict_residual)
 
