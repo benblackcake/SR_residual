@@ -116,7 +116,7 @@ def main():
 			# image = imread('Test/Set5/butterfly_GT.bmp')
 			# image = cv2.cvtColor(image, cv2.COLOR_BGR2YCR_CB)
 
-			input_LR, input_HR = preprocess('Test/Set5/butterfly_GT.bmp')
+			input_LR, input_HR = preprocess('Test/Set5/butterfly_GT.bmp', scale = args.scale)
 
 			input_LR = input_LR/255.
 			input_HR = input_HR/255.
@@ -139,7 +139,7 @@ def main():
 
 			print(sr_image[:,:,0])
 			print(input_LR[:,:,0])
-			sr_image[:,:,0] = sr_image[:,:,0] + result
+			sr_image[:,:,0] =tf.abs(sr_image[:,:,0] + result)
 			# sr_image = np.ceil(sr_image)
 			print(sr_image[:,:,0])
 			print(input_LR[:,:,0])
