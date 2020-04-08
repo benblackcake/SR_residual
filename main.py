@@ -127,8 +127,8 @@ def main():
 			with tf.Session()as sess:
 
 				sr_residual = SRresidual(args.learning_rate, is_train=False)
-				predict_residual = sr_residual.forward(input_image, 20)
-				predict_residual = sess.run([predict_residual], feed_dict={input_image})
+				predict_residual = sr_residual.forward(input_x, 20)
+				predict_residual = sess.run([predict_residual], feed_dict={input_x:input_image})
 			result = predict_residual.eval({input_x: input_image})
 			print(result.shape)
 			result = np.squeeze(result)
