@@ -124,6 +124,8 @@ def main():
 			input_image = input_LR[:,:,0]
 			input_image = np.reshape(input_image,[1,input_image.shape[0],input_image.shape[1],1])
 			# input_image = input_image[:,:,:,np.newaxis]
+			input_x = tf.placeholder(tf.float32, [None, None, None, 1], name='input_lowres')
+
 			with tf.Session()as sess:
 
 				sr_residual = SRresidual(args.learning_rate, is_train=False)
