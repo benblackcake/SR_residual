@@ -124,7 +124,8 @@ def main():
 			input_image = input_LR[:,:,0]
 			input_image = np.reshape(input_image,[1,input_image.shape[0],input_image.shape[1],1])
 			# input_image = input_image[:,:,:,np.newaxis]
-
+			sr_residual = SRresidual(args.learning_rate, is_train=False)
+			predict_residual = sr_residual.forward(input_image, 20)
 			result = predict_residual.eval({input_x: input_image})
 			print(result.shape)
 			result = np.squeeze(result)

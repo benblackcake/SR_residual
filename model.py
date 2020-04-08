@@ -6,28 +6,31 @@ import numpy as np
 
 
 class SRresidual:
-	def __init__(self, learning_rate):
+	def __init__(self, learning_rate, is_train=True):
 		self.learning_rate = learning_rate
+		self.is_train = is_train
 
 	def forward(self,x,n_layer):
 		with tf.variable_scope('residual') as scope:
 			x = tf.layers.conv2d(x, kernel_size=3, filters=1, strides=1, padding='same', use_bias=False)
 			x = tf.nn.relu(x)
-			skip = x
+			# skip = x
 			for i in range(n_layer-1):
 				# w = self._weight(shape=[3,3,3,64])
 				x = self._conv_layer(x)
 				print(x)
-			# x = tf.layers.conv2d(x, kernel_size=3, filters=1, strides=1, padding='same', use_bias=False)
-			# x = tf.nn.relu(x)
-			x = x + skip
-			
+			x = tf.layers.conv2d(x, kernel_size=3, filters=1, strides=1, padding='same', use_bias=False)
+			x = tf.nn.relu(x)
+			# x = x + skip
+
 			return x
 
 
 	def _conv_layer(self,x):
 		# x = tf.nn.conv2d(x,weight,stride=[1,1,1,1],padding='SAME')
 		# skip = x
+		x = tf.layers.batch_normalization(x, training=self.is_train)
+
 		x = tf.layers.conv2d(x, kernel_size=3, filters=64, strides=1, padding='same',use_bias=False)
 		x = tf.nn.relu(x)
 		# x = x + skip
