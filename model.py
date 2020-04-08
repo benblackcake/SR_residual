@@ -20,7 +20,7 @@ class SRresidual:
 				x = self._conv_layer(x)
 				print(x)
 			x = tf.layers.conv2d(x, kernel_size=3, filters=1, strides=1, padding='same', use_bias=False)
-			# x = tf.nn.relu(x)
+			x = tf.nn.relu(x)
 			x = tf.layers.batch_normalization(x, training=self.is_train)
 			x = x + skip
 
