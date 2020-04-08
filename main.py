@@ -140,7 +140,7 @@ def main():
 			print(sr_image[:,:,0])
 			print(input_LR[:,:,0])
 
-			sr_image[:,:,0] =np.abs(input_HR[:,:,0]-sr_image[:,:,0] + result)
+			sr_image[:,:,0] =np.abs(sr_image[:,:,0]+(input_HR[:,:,0]-sr_image[:,:,0] + result))
 			# sr_image = np.ceil(sr_image)
 			print(sr_image[:,:,0])
 			print(input_LR[:,:,0])
